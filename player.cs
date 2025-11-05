@@ -18,6 +18,8 @@ namespace MohawkGame2D
 
 
         // These are the private variables
+        Texture2D walkLeft;
+        Texture2D walkRight;
 
         Vector2 position;
         Vector2 veolcity;
