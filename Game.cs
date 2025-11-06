@@ -14,23 +14,25 @@ namespace MohawkGame2D
 
         Vector2[] platformPos = new Vector2[]
         {
-        new Vector2(50, 450),   // Ground platform
-        new Vector2(150, 350),  // First jump
-        new Vector2(250, 250),  // Second jump
-        new Vector2(350, 150),  // Third jump
-        new Vector2(400, 80)    // Final platform
+        new Vector2(0, 450),    // Ground platform
+        new Vector2(150, 350),   // First jump
+        new Vector2(250, 250),   // Second jump
+        new Vector2(350, 150),   // Third jump
+        new Vector2(400, 80),    // Fourth jump
+        new Vector2(150, 80)     // Fifth Jump
         };
 
         Vector2[] platformSize = new Vector2[]
         {
-        new Vector2(400, 20),   // Wide ground
-        new Vector2(100, 20),   // Medium
-        new Vector2(100, 20),   // Medium
-        new Vector2(80, 20),    // Small
-        new Vector2(60, 20)     // Small
+        new Vector2(500, 20),    // Wide ground
+        new Vector2(200, 20),    // Medium
+        new Vector2(100, 20),    // Medium
+        new Vector2(80, 20),     // Small
+        new Vector2(60, 20),     // Small
+        new Vector2(160, 20)      // Small
         };
 
-        Platform[] platforms = new Platform[5];
+        Platform[] platforms = new Platform[6];
 
         Player Skeleman;
         BadPlatform deadBlock;

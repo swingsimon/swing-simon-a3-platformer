@@ -27,6 +27,8 @@ namespace MohawkGame2D
         Vector2 size = new Vector2(30, 30);
 
         float speed = 200.0f;
+        bool isGrounded = false;
+
 
 
         public void Setup()
@@ -54,9 +56,10 @@ namespace MohawkGame2D
 
         void ProcessInputs()
         {
-            if (Input.IsKeyboardKeyPressed(KeyboardInput.Space))
+            if (Input.IsKeyboardKeyPressed(KeyboardInput.Space) && isGrounded)
             {
-                velocity.Y -= 500.0f;
+                velocity.Y = -500.0f;
+                isGrounded = false;
             }
 
             bool walking = false;
@@ -83,6 +86,7 @@ namespace MohawkGame2D
         }
         void ProcessCollisions(Platform[] platforms)
         {
+            isGrounded = false;
             for (int i = 0; i < platforms.Length; i++)
             {
                 Platform platform = platforms[i];
@@ -98,6 +102,7 @@ namespace MohawkGame2D
                     // Land on top of the platform
                     position.Y = platform.topEdge - size.Y;
                     velocity.Y = 0;
+                    isGrounded = true;
 
                     // Update edge values after position change
                     leftEdge = position.X;
