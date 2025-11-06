@@ -30,10 +30,11 @@ namespace MohawkGame2D
         new Vector2(60, 20)     // Small
         };
 
-        platform[] platforms = new platform[5];
-        player Skeleman;
-        badPlatform deadBlock;
-        goal endSquare;
+        Platform[] platforms = new Platform[5];
+
+        Player Skeleman;
+        BadPlatform deadBlock;
+        Goal endSquare;
 
 
 
@@ -49,23 +50,23 @@ namespace MohawkGame2D
             //Initialize all the game objects here
             for (int i = 0; i < platforms.Length; i++)
             {
-                platforms[i] = new platform();
+                platforms[i] = new Platform();
                 platforms[i].position = platformPos[i];
                 platforms[i].size = platformSize[i];
                 platforms[i].Setup();
 
             }
 
-            Skeleman = new player();
+            Skeleman = new Player();
             Skeleman.Setup();
 
 
-            deadBlock = new badPlatform();
+            deadBlock = new BadPlatform();
             deadBlock.position = new Vector2();
             deadBlock.Setup();
 
 
-            endSquare = new goal();
+            endSquare = new Goal();
             endSquare.position = new Vector2();
             endSquare.Setup();
 
@@ -74,13 +75,15 @@ namespace MohawkGame2D
         /// <summary>
         ///     Update runs every frame.
         /// </summary>
+        /// 
+
+
         public void Update()
         {
             Window.ClearBackground(Color.Black);
 
-            DrawBackground();
-
-            if (goal.reached)
+            
+            if (endSquare.reached)
             {
                 Text.Draw("You made it!", new Vector2(250, 250));
             }
@@ -94,9 +97,8 @@ namespace MohawkGame2D
                     platforms[i].Update();
                 }
 
-                player.Update(platform);
-                endSquare.Update(player);
-                goal.Update(player);
+                Skeleman.Update(platforms);
+                endSquare.Update(Skeleman);
             }
         }
 

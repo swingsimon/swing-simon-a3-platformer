@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MohawkGame2D
 {
-    public class player
+    public class Player
     {
         // Variables for collision detection
         public float leftEdge = 0.0f;
@@ -32,13 +32,13 @@ namespace MohawkGame2D
         public void Setup()
         {
             velocity = new Vector2(0, 0);
-            position = new Vector2(450, 0);
+            position = new Vector2(100, 300);
             walkLeft = Graphics.LoadTexture("Textures/Skele-Left-Walk.png");
             walkRight = Graphics.LoadTexture("Textures/SKele-Right-Walk.png");
             size = new Vector2(walkLeft.Width, walkLeft.Height);
         }
 
-        public void Update(platform[] platforms)
+        public void Update(Platform[] platforms)
         {
             leftEdge = position.X;
             rightEdge = position.X + size.X;
@@ -76,52 +76,43 @@ namespace MohawkGame2D
             }
 
         }
-        void ProcessPhysics(platform[] platforms)
+        void ProcessPhysics()
         {
-            velocity += gravity + Time.DeltaTime;
-            position += velocity + Time.DeltaTime;
+            velocity += gravity * Time.DeltaTime;
+            position += velocity * Time.DeltaTime;
         }
-        void ProcessCollisions(platform[] platforms)
+        void ProcessCollisions(Platform[] platforms)
         {
-            if (Input.IsKeyboardKeyPressed(KeyboardInput.Space)) return;
-
-            platform platform = platforms[i];
-
-            bool collided = false;
-            if (rightEdge > platform.leftEdge && leftEdge < platform.rightEdge && bottomEdge > platform.topEdge && topEdge < platform.bottomEdge)
+            for (int i = 0; i < platforms.Length; i++)
             {
-                collided = true;
+                Platform platform = platforms[i];
+                if (platform == null) continue;
 
-                var leftDistance = Math.Abs(leftEdge - platform.rightEdge);
-                var rightDistance = Math.Abs(rightEdge - platform.leftEdge);
-                var topDistance = Math.Abs(topEdge - platform.bottomEdge);
-                var bottomDistance = Math.Abs(bottomEdge - platform.topEdge);
+                // Check for overlap
+                bool horizontalOverlap = rightEdge > platform.leftEdge && leftEdge < platform.rightEdge;
+                bool verticalOverlap = bottomEdge > platform.topEdge && topEdge < platform.bottomEdge;
 
-                if (topDistance < bottomDistance && topDistance < leftDistance && topDistance < rightDistance)
+                // Only resolve if overlapping and falling downward
+                if (horizontalOverlap && verticalOverlap && velocity.Y > 0)
                 {
-                    position.Y = platform.position.Y + platform.size.Y;
-                }
-
-                if (bottomDistance < topDistance && bottomDistance < leftDistance && bottomDistance < rightDistance)
-                {
-                    position.Y = platform.position.Y - platform.size.Y;
+                    // Land on top of the platform
+                    position.Y = platform.topEdge - size.Y;
                     velocity.Y = 0;
-                }
-                if (leftDistance < rightDistance && leftDistance < topDistance && leftDistance < bottomDistance)
-                {
-                    position.X = platform.position.X + platform.size.X;
-                }
-                if (rightDistance < topDistance && rightDistance < bottomDistance && rightDistance < leftDistance)
-                {
-                    position.X += platform.size.X;
+
+                    // Update edge values after position change
+                    leftEdge = position.X;
+                    rightEdge = position.X + size.X;
+                    topEdge = position.Y;
+                    bottomEdge = position.Y + size.Y;
                 }
             }
-
         }
+
         void DrawPlayer()
         {
             Graphics.Rotation = 0.0f;
             Graphics.Scale = 1.0f;
+            Graphics.Draw(walkRight, position);
 
         }
     }

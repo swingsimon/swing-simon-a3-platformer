@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MohawkGame2D
 {
-    public class goal
+    public class Goal
     {
         Texture2D endSquare;
         public Vector2 position;
@@ -18,14 +18,14 @@ namespace MohawkGame2D
         public float topEdge = 0.0f;
         public float bottomEdge = 0.0f;
 
-        public bool gameWin = false;
+        public bool reached = false;
         public void Setup()
         {
             endSquare = Graphics.LoadTexture("Textures/endSquare.png");
             size = new Vector2(endSquare.Width, endSquare.Height);
         }
 
-        public void Update(player player)
+        public void Update(Player player)
         {
             leftEdge = position.X;
             rightEdge = position.X + size.X;
@@ -35,7 +35,7 @@ namespace MohawkGame2D
         
             if (rightEdge > player.leftEdge && leftEdge < player.rightEdge && topEdge < player.bottomEdge && bottomEdge > player.topEdge)
             {
-                gameWin = true;
+                reached = true;
             }
 
             Graphics.Scale = 1.0f;
