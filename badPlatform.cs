@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MohawkGame2D
 {
-    internal class badPlatform
+    public class badPlatform
     {
     }
 }
