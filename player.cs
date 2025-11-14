@@ -34,7 +34,7 @@ namespace MohawkGame2D
         public void Setup()
         {
             velocity = new Vector2(0, 0);
-            position = new Vector2(100, 300);
+            position = new Vector2(0, 450);
             walkLeft = Graphics.LoadTexture("Textures/Skele-Left-Walk.png");
             walkRight = Graphics.LoadTexture("Textures/SKele-Right-Walk.png");
             size = new Vector2(walkLeft.Width, walkLeft.Height);

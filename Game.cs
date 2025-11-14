@@ -16,9 +16,9 @@ namespace MohawkGame2D
         {
         new Vector2(0, 450),    // Ground platform
         new Vector2(150, 350),   // First jump
-        new Vector2(250, 250),   // Second jump
-        new Vector2(350, 150),   // Third jump
-        new Vector2(400, 80),    // Fourth jump
+        new Vector2(350, 250),   // Second jump
+        new Vector2(450, 150),   // Third jump
+        new Vector2(350, 80),    // Fourth jump
         new Vector2(150, 80)     // Fifth Jump
         };
 
@@ -29,7 +29,7 @@ namespace MohawkGame2D
         new Vector2(100, 20),    // Medium
         new Vector2(80, 20),     // Small
         new Vector2(60, 20),     // Small
-        new Vector2(160, 20)      // Small
+        new Vector2(120, 20)     // Medium
         };
 
         Platform[] platforms = new Platform[6];
@@ -37,6 +37,9 @@ namespace MohawkGame2D
         Player Skeleman;
         BadPlatform deadBlock;
         Goal endSquare;
+
+
+        bool gameStarted = false;
 
 
 
@@ -80,29 +83,60 @@ namespace MohawkGame2D
         /// 
 
 
+
         public void Update()
         {
             Window.ClearBackground(Color.Black);
 
-            
-            if (endSquare.reached)
+            if (!gameStarted)
             {
-                Text.Draw("You made it!", new Vector2(250, 250));
+                DrawTitleScreen();
             }
-
             else
             {
 
-                for (int i = 0; i < platforms.Length; i++)
-
+                if (endSquare.reached)
                 {
-                    platforms[i].Update();
+                    Text.Size = 32;
+                    Text.Color = Color.White;
+                    Text.Draw("Congratulations!!", new Vector2(150, 250));
+                    Text.Size = 32;
+                    Text.Color = Color.White;
+                    Text.Draw("You made it!", new Vector2(155, 300));
                 }
 
-                Skeleman.Update(platforms);
-                endSquare.Update(Skeleman);
+                else
+                {
+
+                    for (int i = 0; i < platforms.Length; i++)
+
+                    {
+                        platforms[i].Update();
+                    }
+
+                    Skeleman.Update(platforms);
+                    endSquare.Update(Skeleman);
+                }
+            }
+
+        }
+        void DrawTitleScreen()
+        {
+            Text.Size = 32;
+            Text.Color = Color.White;
+            Text.Draw("Skeleman Escapes", new Vector2(120, 100));
+
+            Text.Size = 20;
+            Text.Color = Color.White;
+            Text.Draw("Press ENTER to Start", new Vector2(150, 180));
+            Text.Draw("Use LEFT and RIGHT arrows to move", new Vector2(80, 240));
+            Text.Draw("Press SPACE to jump", new Vector2(150, 270));
+            Text.Draw("Reach the BIG E to win!", new Vector2(125, 300));
+
+            if (Input.IsKeyboardKeyPressed(KeyboardInput.Enter))
+            {
+                gameStarted = true;
             }
         }
-
     }
 }
