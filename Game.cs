@@ -99,10 +99,10 @@ namespace MohawkGame2D
                 {
                     Text.Size = 32;
                     Text.Color = Color.White;
-                    Text.Draw("Congratulations!!", new Vector2(150, 250));
+                    Text.Draw("Congratulations!!", new Vector2(150, 200));
                     Text.Size = 32;
                     Text.Color = Color.White;
-                    Text.Draw("You made it!", new Vector2(155, 300));
+                    Text.Draw("You made it!", new Vector2(155, 250));
                 }
 
                 else
